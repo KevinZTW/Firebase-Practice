@@ -89,52 +89,72 @@ app.getAllUser=async function(){
     return allUser
 }
 
-app.makeAllUser=async function(){
-     users = await app.getAllUser()
+app.makeUser=async function(users){
+     users = await users
     let div = app.div()
     users.forEach((user)=>{
         let wrapper = app.div()
+        wrapper.className="user-wrapper"
         let id = app.div()
         id.textContent = user.id
+        id.className ="id"
         let name = app.div();
         name.textContent=user.name
         let email =app.div()
         email.textContent=user.email
+        let add = document.createElement("button")
+        add.textContent = "Add Friend"
         wrapper.appendChild(id)
         wrapper.appendChild(name)
         wrapper.appendChild(email)
+        wrapper.appendChild(add)
         div.appendChild(wrapper)
     })
     return div
 }
 
-app.showAllUser =async function(tag){
+app.showUser =async function(tag, getUser){
     let parent = document.querySelector(tag);
-    let userContent = await app.makeAllUser()
-    console.log(userContent)
+    let userContent = await app.makeUser(getUser)
     parent.appendChild(userContent)
     
 }
 
+ 
 
 
-app.searchUser =function(email){
-    db.collection("user_kevin").where("email", "==", email).get().then((doc)=>{
 
-    }).catch((err)=>console.log(err))
-}
+
 
 
 // send invitation <User A> -> <User B>  user A would add to B's invitation
 app.sendInvitation=function(userAId, userBId){
+    console.log(userBId)
     let obj={}
-    db.collection("user_kevin").doc("sophia123").get().then(
+    db.collection("user_kevin").doc(userBId).get().then(
         (doc)=>{obj.id =doc.data().id;
                 obj.name = doc.data().name;
                 obj.email = doc.data().email
         }).then(()=>{console.log(obj);
             db.collection("user_kevin").doc(userAId).collection("invitation").doc(userBId).set(obj)}).catch((err)=>console.log(err))
 }
+
+app.queryPendingUser=async function(userId){
+    let allUser=[]
+    await db.collection("user_kevin").doc(userId).collection("invitation").get().then((querySnapshot)=>{
+        querySnapshot.forEach((doc)=>{
+            let data =doc.data()
+            let user={
+                id:data.id,
+                name:data.name,
+                email:data.email
+            }
+            allUser.push(user)
+        })
+    }).then(()=>console.log(allUser)).catch((err)=>console.log(err))
+    return allUser
+}
+
 
 app.acceptInvitation=async function(userAId, userBId){
     let obja={}
@@ -151,7 +171,7 @@ app.acceptInvitation=async function(userAId, userBId){
     db.collection("user_kevin").doc(userBId).collection("friend").doc(userAId).set(obj);
 }
 
-app.sendInvitation("fiona456", "Chihan123")
+
 // app.acceptInvitation("fiona456","rock123")
 
 
