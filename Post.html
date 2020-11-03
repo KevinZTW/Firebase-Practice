@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post</title>
+</head>
+<body>
+        <div class=“recipient”>
+            <div class=“title”>BLOG POST</div>
+            <div class=“line”>
+                <div class=“text”>Title</div>
+                <div class=“input”>
+                    <input type=“text” id="title" />
+                </div>
+            </div>
+            <div class=“line”>
+                <div class=“text”>Content</div>
+                <div class=“input”>
+                    <input type=“text” id="content"/>
+                </div>
+            </div>
+            <div class=“line”>
+                <div class=“text”>Tag</div>
+                <div class=“input”>
+                    <select type=“text” id="tag">
+                        <option value=“Beauty”>Beauty</option>
+                        <option value=“Gossiping”>Gossiping</option>
+                        <option value=“SchoolLife”>SchoolLife</option>
+                    </select>
+                </div>
+            </div>
+            <div class=“line”>
+                <div class=“text”>author_id</div>
+                <div class=“input”>
+                    <input type=“text” id="author" />
+                </div>
+            </div>
+            <button id="publish">發布</button>
+</main>
+
+    
+</body>
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-analytics.js"></script>
+
+<script>
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  var firebaseConfig = {
+    apiKey: "AIzaSyAAc20IXvBeLD4RlMTslVSogKFhRdfPIQ4",
+    authDomain: "fir-practice-50eef.firebaseapp.com",
+    databaseURL: "https://fir-practice-50eef.firebaseio.com",
+    projectId: "fir-practice-50eef",
+    storageBucket: "fir-practice-50eef.appspot.com",
+    messagingSenderId: "464362010960",
+    appId: "1:464362010960:web:8ad2c3bdaef4f40d9bd455",
+    measurementId: "G-8RRJSBQXQR"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+</script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+
+<script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-firestore.js"></script>
+
+
+<script src="lib.js"></script>
+<script src="app.js"></script>
+<link rel="stylesheet" href="./style.css">
