@@ -1,6 +1,7 @@
 app.init=function(){
+    app.getLoginUser()
     // SWITCH THE LOGIN HERE!!!
-    app.showUser(".invite-list", app.queryPendingUser("kevin123"))
+    app.showInviteUser(".invite-list", app.queryPendingUser(app.loginId))
     app.showUser(".user-list",app.getAllUser())
 }
 
@@ -36,18 +37,11 @@ app.handleSearchClick=async function(){
 
 }
 
-// when click the add friend button, would get first id and add as friend
-//currently set add to "kevin123"
-app.handleAddFriend=function(){
-    let wrapper = app.get(".user-list")
-    let userBId = wrapper.querySelector(".id").textContent
-    app.sendInvitation(userBId, "kevin123")
-    
-}
+
 
 
 
 document.querySelector(".search").addEventListener("click", app.handleSearchClick)
-document.querySelector(".addfriend").addEventListener("click", app.handleAddFriend)
+// document.querySelector(".addfriend").addEventListener("click", app.handleAddFriend)
 app.init()
 
