@@ -14,7 +14,7 @@ app.init=function(){
 app.getSearchUser =async function(email){
     let users =[]
     console.log(email)
-    await db.collection("user_kevin").where("email", "==", email).get().then((querySnapshot)=>{
+    await db.collection("Users").where("email", "==", email).get().then((querySnapshot)=>{
         querySnapshot.forEach((doc)=>{
             let data =doc.data()
             let user={

@@ -59,23 +59,14 @@ app.readArticle=function(){
     })
 }
 
-/*
-1. login as A 
-2. use email to search user 
-3. show user fit result
-4. add  B as friend (add A to B's invitation)
 
-1. B open invitation list, show A on screen
-2. B click accept, add B to A's friend and add A to B's friend
-
-*/ 
 
 
 
 // get all user data from userkevin firestore collection
 app.getAllUser=async function(){
     let allUser=[]
-    await db.collection("user_kevin").get().then((querySnapshot)=>{
+    await db.collection("Users").get().then((querySnapshot)=>{
         querySnapshot.forEach((doc)=>{
             let data =doc.data()
             let user={
@@ -168,17 +159,17 @@ app.sendInvitation=function(userAId, userBId){
     console.log(userAId)
     console.log(userBId)
     let obj={}
-    db.collection("user_kevin").doc(userAId).get().then(
+    db.collection("Users").doc(userAId).get().then(
         (doc)=>{obj.id =doc.data().id;
                 obj.name = doc.data().name;
                 obj.email = doc.data().email
         }).then(()=>{console.log(obj);
-            db.collection("user_kevin").doc(userBId).collection("invitation").doc(userAId).set(obj)}).catch((err)=>console.log(err))
+            db.collection("Users").doc(userBId).collection("invitationList").doc(userAId).set(obj)}).catch((err)=>console.log(err))
 }
 
 app.queryPendingUser=async function(userId){
     let allUser=[]
-    await db.collection("user_kevin").doc(userId).collection("invitation").get().then((querySnapshot)=>{
+    await db.collection("Users").doc(userId).collection("invitationList").get().then((querySnapshot)=>{
         querySnapshot.forEach((doc)=>{
             let data =doc.data()
             let user={
@@ -199,21 +190,21 @@ app.acceptInvitation=async function(e){
     console.log(userBId)
     let obja={}
     let objb={}
-    await db.collection("user_kevin").doc(userAId).get().then(
+    await db.collection("Users").doc(userAId).get().then(
         (doc)=>{obja.id =doc.data().id;
                 obja.name = doc.data().name;
                 obja.email = doc.data().email
         })
-    await db.collection("user_kevin").doc(userBId).get().then(
+    await db.collection("Users").doc(userBId).get().then(
         (doc)=>{objb.id =doc.data().id;
                 objb.name = doc.data().name;
                 objb.email = doc.data().email
         })
     
-    db.collection("user_kevin").doc(userAId).collection("invitation").doc(userBId).delete();
-    db.collection("user_kevin").doc(userBId).collection("invitation").doc(userAId).delete();
-    db.collection("user_kevin").doc(userAId).collection("friend").doc(userBId).set(objb);
-    db.collection("user_kevin").doc(userBId).collection("friend").doc(userAId).set(obja);
+    db.collection("Users").doc(userAId).collection("invitationList").doc(userBId).delete();
+    db.collection("Users").doc(userBId).collection("invitationList").doc(userAId).delete();
+    db.collection("Users").doc(userAId).collection("friendList").doc(userBId).set(objb);
+    db.collection("Users").doc(userBId).collection("friendList").doc(userAId).set(obja);
 }
 
 
@@ -225,25 +216,18 @@ app.acceptInvitation=async function(e){
 
 
 
-app.add=function(userid){
-    let test=""
-    db.collection("user_kevin").doc("sophia123").get().then((doc)=>{doc.data()})
-
-}
-
-app.add()
 
 
 
 
 
 
-// db.collection("article")
-//     .onSnapshot(function (querySnapshot) {
-//         querySnapshot.forEach(function (doc) {
-//             console.log("article=", doc.data())
-//         });
-//     });
+db.collection("Users").doc(app.loginId).collection("invitationList")
+    .onSnapshot(function (querySnapshot) {
+        querySnapshot.forEach(function (doc) {
+            console.log("You got new invitation from=>", doc.data().id)
+        });
+    });
 
 
 
