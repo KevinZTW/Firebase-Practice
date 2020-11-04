@@ -16,6 +16,8 @@ app.get("#publish").addEventListener("click", function(){
 })
 
 app.addDate=function(){
-    
 
 }
+//-------------------------------------< The New Part>-----------
+
+//Get friend list and show on query seleciton

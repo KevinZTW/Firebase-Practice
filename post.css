@@ -1,0 +1,13 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+  }
+body {
+    font-size: 16px;
+    font-family: "Noto Sans TC", "微軟正黑體", "新細明體", arial, sans-serif;
+    color: #3f3a3a;
+    padding:1px 10px;
+  }
+
+
